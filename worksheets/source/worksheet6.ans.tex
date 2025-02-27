@@ -5,10 +5,11 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
 \usepackage{hyperref}
 \usepackage{geometry}
 \geometry{margin=1in}
-\title{Worksheet 6}
+\title{Worksheet 6 - outline solutions}
 
 \author{Conor Houghton, copying from Martha Lewis}
 \date{}
@@ -54,25 +55,76 @@
     \draw (F) -- node[left] {$2$} (K);
     \draw (F) -- node[left] {$2$} (L);
 
-
-    
 \end{tikzpicture}
 \end{center}
 
 Assume that the nodes are expanded in alphabetical order when no other order is specified by the search, and that the goal is state G. What order would the states be expanded by each type of search? Stop when you expand G.
 
 \begin{enumerate}
-    \item Depth First:
-    \item Breadth First:
-    \item Uniform Cost Search:
+    \item Depth First: \textsl{solution} ABDFKLECG
+    \item Breadth First: \textsl{solution} ABCDEG
+    \item Uniform Cost Search: \textsl{solution} ABDECFG
 \end{enumerate}
 
 \noindent \textbf{Question 2.} Consider the water jugs problem. You have a tap, a 5-litre bucket, and a 7-litre bucket. You need \textbf{EXACTLY} 4 litres of water. You may fill either bucket from the tap or the other bucket; you may empty either bucket into the drain or into the other bucket.
 
 \begin{enumerate}
-    \item What are the actions possible in a state where you have $S$ litres of water in the small bucket and $L$ litres in the large bucket?
-    \item Starting from the initial state (0,0), draw the search tree until you reach a goal node, with 4 litres of water in one or other of the buckets.
-    \item Would breadth or depth-first search be best to find the optimal solution? Why?
+    \item What are the actions possible in a state where you have $S$ litres of water in the small bucket and $L$ litres in the large bucket? \textsl{solution} The actions are: fill bucket 1, fill bucket 2, empty bucket 1, empty bucket 2, pour bucket 1 into bucket 2, pour bucket 2 into bucket 1.
+    \item Starting from the initial state (0,0), draw the search tree until you reach a goal node, with 4 litres of water in one or other of the buckets. \textsl{solution}: leaving out nodes that were already visited:
+
+\begin{center}
+
+\begin{tikzpicture}[
+    every node/.style={draw, circle, minimum size=0.8cm, align=center},
+    level distance=2cm,
+    level 1/.style={sibling distance=4cm},
+    level 2/.style={sibling distance=2cm},
+    level 3/.style={sibling distance=1.5cm},
+    level 4/.style={sibling distance=1cm},
+    edge from parent/.style={draw, ->, >=stealth}
+]
+
+    % Root node
+    \node (root) at (0, 0) {0, 0};
+
+    % Level 1: Fill 5L or Fill 7L
+    \node[below left=of root] (50) {5, 0};
+    \node[below right=of root] (07) {0, 7};
+
+    \draw (root) -- (50) ;%node[midway, left] {Fill 5L};
+    \draw (root) -- (07) ;%node[midway, right] {Fill 7L};
+
+    % Level 2: From (5, 0)
+    \node[below left=of 50] (05) {0, 5};
+    \node[below right=of 50] (57) {5, 7};
+
+    \draw (50) -- (05) ;
+    \draw (50) -- (57) ;
+    
+    % Level 2: From (0, 7)
+    \node[below right=of 07] (52) {5, 2};
+
+    \draw (07) -- (52) ;%node[midway, left] {Pour 7L->5L};
+
+    `%level 3: from (0,5)
+    \node[below right=of 05] (55) {5, 5};
+    \draw (05) -- (55);
+    
+    `%level 4: from (5,5)
+    \node[below=of 55] (37) {3, 7};
+    \draw (55) -- (37);
+
+    
+\end{tikzpicture}
+\end{center}
+After this the tree just follows the two branches down, on the left
+$$3,7\rightarrow 3,0 \rightarrow 0,3 \rightarrow 5,3 \rightarrow 1,7 \rightarrow 1,0 \rightarrow 0,1 \rightarrow 5,1 \rightarrow 0,6 \rightarrow 5,6 \rightarrow 4,7$$
+and on the right
+$$5,2\rightarrow 0,2\rightarrow 2,0 \rightarrow 2,7 \rightarrow 5,4$$
+
+    \item Would breadth or depth-first search be best to find the optimal solution? Why? \textsl{solution}: Breadth first search would find the optimal solution, since we can view each action as
+having the same cost, whereas depth-first search could find a solution that would take
+longer.
 \end{enumerate}
 
 \noindent \textbf{Question 3.} Below is a graph to be searched (from node S to node G).
@@ -117,7 +169,10 @@ You are given a list of heuristic estimates at the states:
     S &= 10 \\
     G &= 0
 \end{align*}
-Break ties using alphabetical order. Perform a best-first greedy search. Show the path to the goal.\\[1 cm]
+Break ties using alphabetical order. Perform a best-first greedy search. Show the path to the goal. \textsl{solution}: Best first greedy search would expand nodes in the following order: A, C, D, G. The path found
+is SADG.\\[1 cm]
+
+
 
 \noindent \textbf{Question 4.} We are given the following graph, where each node has an identifier and a heuristic value, while each edge has a cost.
 \begin{center}
@@ -129,7 +184,7 @@ Break ties using alphabetical order. Perform a best-first greedy search. Show th
     }
 }
     \node (A)[thisNode] at (0,0) {A};
-    \node (B)[thisNode] at (-2,-2) {B$_{h=12}$};
+    \node (B)[thisNode] at (-2,-2) {B$_{h=qw}$};
     \node (C)[thisNode] at (0,-2) {C$_{h=6}$};
     \node (D)[thisNode] at (2,-2) {D$_{h=1}$};
     \node (E)[thisNode] at (-2,-4) {E$_{h=1}$};
@@ -160,5 +215,22 @@ Break ties using alphabetical order. Perform a best-first greedy search. Show th
     \end{equation*}
     Assuming that $h(n)$ is admissible, what are the values of $w$ that guarantee the algorithm will find an optimal solution?
 \end{enumerate}
+
+\textsl{solution}: So from A all the connected nodes are updated to
+give B:2, C:6 and D:11; the distance plus heuristic is therefore using a notation I have just made up but which is hopefully clear:
+B:$f$14, C:$f$12 and D:$f$11 and as such D is the next noded visited. The
+only connected node is F and so we update F:12 and F:$f$13. This means
+the next node to visit is C giving G:26. Now we go D making E:12 and
+E:$f$13. If we break the tie alphabetically we go to E next giving
+G:14. We need to check F but that doesn't change anything and the
+final goal is now the nearest node with path ABEG. What a useless
+heuristic! Yes, $h$ is admissible. No, $h$ is not consistent. To see
+why we can look for decreasing f values on any path. The triangle
+inequality is violated for nodes B and E. With $w = 0$ the algorithm
+is uniform cost, which is guaranteed to find an optimal solution if
+there is a solution.  With $w = 0.5$ the algorithm is A-star, which,
+given that h is admissible, is guaranteed to find an optimal solution
+if there is a solution.
+
 
 \end{document}
