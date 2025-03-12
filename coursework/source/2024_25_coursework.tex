@@ -1,0 +1,198 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts, epsfig}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lfoot{\texttt{emamtm0067.github.io}}
+\lhead{Introduction to AI - Coursework}
+\rhead{\thepage}
+\cfoot{}
+\begin{document}
+
+\section*{Coursework }
+
+\subsection*{Question 1 (25 pts)}
+
+The idea for this question is to cluster words; for the question you
+will need a substantial piece of text. I suggest you use Project
+Gutenberg\\ \\ \texttt{https://www.gutenberg.org/} \\ \\ and download
+a few novels and concatenate them. Try to pick reasonably recent
+novels since they will have a more contemporary language use, however,
+because of the copyright restrictions the books tend to older. In what
+follows there are a series of ``marking waypoints'' indicated with
+numbers in square brackets of the form [m1] to [m6], these will be
+explained after the overall requirements are discussed.
+
+When you have created your text [m1] pick a set of about 100 words,
+these should not be function words like ``the'' or ``of'', so, for
+example, pick 100 nouns or a set split between nouns, verbs, adjective
+and adverbs. These might be the most common words in these classes or
+they may all be words in a specitic category, abstract nouns for
+example, or words related to needlework [m2]. Call this list $L$.
+
+Now we want to create a set of similarities or distances between pairs
+of words in $L$. The similarity I have in mind is how often two words
+occur in the same sentence, or the average distance apart the words
+are in the text [m3]. Use this distance or similarity measure to
+perform unsupervised learning, any algorithm you want, and describe
+the results [m4].
+
+The distance between two words may be greater than distance you get if
+you go by way of a third word: for example, and this example is a
+completely made up, image
+\begin{align}
+  d(\text{soup},\text{bed})&=34.4\\
+  d(\text{soup},\text{spoon})&=2.8\\
+  d(\text{spoon},\text{bed})&=4.6
+\end{align}
+Now it is quicker to get from soup to bed if you go by way of spoon and it might be more correct to regard
+\begin{equation}
+  d(\text{soup},\text{bed})=2.8+4.6=7.4
+\end{equation}
+Use Dijkstra's algorithm to find the shortest distance between an pair
+of words in $L$ [m5] and repeat the unsupervised learning. Is it any
+different? [m6]
+
+
+The mark waypoints [m1]-[m6] are there to give an idea of the marking
+scheme but is intended to be a rough guide, not a rigid scheme. At
+[m1] four marks will have been allocated, to get a particularly good
+mark here make sure the data has been cleaned. At [m2] an additional
+two marks have been allocated, as an aside, this is a place an LLM
+could sensibly be used, for example, to pick the nouns from a list. At
+[m3] another four marks have been allocated, be careful to explain how
+you are calculating the distance, why you made that choice and what
+you see, for example, by noting which words are closest and which
+furthest apart. Six more marks are allocated by [m4], for a very
+good mark discuss the choice of algorithm and any meta-parameters, use
+graphs to compare different choices. Six more marks are allocated by
+[m5]; obviously the challenge here is implementing the
+algorithm. Explain clearly what you have done. Finally there are three
+more marks to be allocated by [m6].
+
+\subsection*{Question 3 (15 marks)}
+
+Generate a data set in two dimensions with a division boundary of the
+form $y=ax^2+x$, so points one side of this boundary belong to class A
+and to the other, class B. Investigate how well logistic regression
+works for these data as $a$ is varied. What about a small neural
+network? How are these approaches affected if the number of points is
+varied, or the balance between class A and class B in the number of
+points? How does changing the size of the network change the performance.
+
+
+\subsection*{Question 3 (10 marks)}
+
+Do large language models have rights or other attributes of
+personhood? Do they have rights and will they acquire them? Discuss this in an essay of about one page.
+
+\begin{itemize}
+\item Your essay should stay focused on that topic throughout. 
+\item If you argue for or against a position, ensure your points directly support your stance. If you're presenting both sides, weigh the pros and cons.
+\item Start with a clear introduction that states your main argument or the scope of your discussion.
+\item Organise your points logically in the body of your essay. Each paragraph should advance your argument or analysis.
+\item Conclude with a summary of your argument or final reflection on the topic.
+\item Reference key studies or theories that support your argument. Provide brief explanations of why the cited studies are important for your argument.
+\item  Don't just summarise; engage critically with the literature.
+\item For higher marks, address counterarguments or limitations in the approaches you're discussing.
+\item Aim for clear and precise writing. Avoid jargon unless necessary and explain technical terms.
+\item Ensure that your essay is free of grammatical and spelling errors, and that your ideas flow smoothly from one to the next.
+\end{itemize}
+
+You can use AI in helping develop your thoughts, or for finding and
+fixing errors, but I expect clarity, originality and incisive thought
+with strong, clearly held views while avoiding platitudes and weasel
+statements. None of this will be present in an essay which has, from
+the start, been taken from an LLM.
+
+
+\subsection*{Report}
+
+Your report should be no longer than seven pages, excluding any
+references. Use an 11 or 12pt font and use a standard page layout, do
+not expand the page just to make it fit more text!
+
+Your report must be submitted in pdf and should be prepared in LaTeX;
+overleaf is a good approach, but not required as long as LaTeX has
+been used\footnote{R-markdown and some other notebook-based
+environments typeset using LaTeX, this is acceptable}. As always when
+using LaTeX, give yourself over to defaults, our expectation of what a
+document should look like has been conditioned on LaTeX, so it is best
+not to try to override the look of the document.
+
+Avoid code snippets in the report unless that feels like the best way
+to illustrate some subtle aspect of an algorithm; do always though
+consider a mathematical description if possible. You will be asked to
+submit code and it may be tested to make sure it works and matches
+your report. It will not, however, be marked in and of itself.
+
+\subsection*{Submission}
+
+The deadline for report and code: 13h00 (GMT+1) on Monday 2025-04-28, there
+will be a submission point on Blackboard under the ``assessment,
+submission and feedback'' link. Please upload the following two files:
+\begin{enumerate}
+\item Your report as a PDF with filename <student\_number>.pdf, where
+  ``<student\_number'' is replaced by your student number, not your
+  username. Upload this to the submission point ``Introduction to AI
+  Coursework (Turnitin)''.
+\item Your code inside a single zip file with filename
+  <student\_number>.zip. Inside the zip file there should be a single
+  folder containing your code, with your student number as the folder
+  name. Please remove datasets and other large files to minimise the
+  upload size - we only need the code itself. Upload this file to the
+  submission point ``Code for Introduction to AI Coursework''.
+\end{enumerate}
+  
+We may review your Python code by eye but your marks will be based on
+the contents of your report, with the code used to check how you
+carried out the experiments described in your report. We will not give
+marks for the coding style, comments, or organisation of the
+code. Code written in Julia or R is also acceptable as is the use of a
+standard notebook format. If you are particularly keen on another
+programming language let me know and I will consider this.
+
+Please do not include your name in the report text itself: to ensure
+fairness, we mark the reports anonymously.
+
+Avoiding Academic Offences: Please re-read the university's plagiarism
+rules to make sure you do not break any rules. Academic offences
+include submission of work that is not your own, falsification of data
+/ evidence or the use of materials without appropriate
+referencing. Note that sharing your report with others is also not
+allowed. These offences are all taken very seriously by the University
+and we have very little leeway within the framework the University has
+set out. Do not copy text directly from your sources - always rewrite
+in your own words and provide a citation. Work independently -- do not
+share your code or reports with others; you can, of course, discuss
+your work with your classmates, but do not share text or code.
+
+Suspected offences will be dealt with in accordance with the
+University's policies and procedures. If an academic offence is
+suspected in your work, you will be asked to attend an interview with
+senior members of the school, where you will be given the opportunity
+to defend your work. The plagiarism panel can apply a range of
+penalties, depending on the severity of the offence. These include a
+requirement to resubmit work, capping of grades and the award of no
+mark for an element of assessment. Again, we are not in a position to
+be lenient here, the academic offences procedure is not one we control.
+
+\subsection*{Extensions and Exceptional Circumstances}
+
+If the completion of your assignment has been significantly disrupted
+by serious health conditions or personal problems, or other serious
+issues, you can apply for consideration in accordance with the normal
+university policy and processes. Students should refer to the guidance
+and complete the application forms as soon as possible when the
+problem occurs. Please see the guidance below and discuss with your
+personal tutor for more advice:
+\begin{itemize}
+\item \texttt{www.bristol.ac.uk/students/support/academic-advice/\\
+  assessment-support/request-a-coursework-extension/}
+\item \texttt{www.bristol.ac.uk/students/support/academic-advice/\\assessment-support/exceptional-circumstances/}
+    \end{itemize}
+
+
+
+\end{document}
